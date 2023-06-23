@@ -12,9 +12,9 @@
             @endif
             <div class="card-body">
                 <div class="title-header option-title">
-                    <h5>Product List</h5>
+                    <h5>customers List</h5>
                     <form class="d-inline-flex">
-                        <a href="{{route('products.create')}}" class="align-items-center btn btn-theme">
+                        <a href="{{route('customers.create')}}" class="align-items-center btn btn-theme">
                             <i data-feather="plus"></i>Add New
                         </a>
                     </form>
@@ -25,50 +25,35 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Image</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Unit</th>
-                                <th>Stock</th>
-                                <th>Price</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($products as $key=>$product)
+                            @foreach ($customers as $key=>$customer)
                                 <tr>
                                     <td class="text-center">{{$key+1}}</td>
-                                    <td>
-                                        <img width="70" src="{{$product->image?asset('uploads/product/'.$product->image):asset('backend/assets/images/bg.png')}}" alt="">
-                                    </td>
-                                    <td>{{$product->name}}</td>
-                                    <td>{{$product->category->name}}</td>
-                                    <td>
-                                        @if (App\Models\Unit::where('id',$product->id)->exists())
-                                        {{$product->unit->name}}
-                                        @else 
-                                        unkhno
-                                        @endif
-                                        
-                                    </td>
-                                    <td>{{$product->stock}}</td>
-                                    <td>{{$product->selling_price}}</td>
+                                    <td>{{$customer->name}}</td>
+                                    <td>{{$customer->email}}</td>
+                                    <td>{{$customer->phone}}</td>
                                     <td>
                                         <ul>
                                             <li>
-                                                <a href="{{route('products.show',$product->id)}}">
+                                                <a href="{{route('customers.show',$customer->id)}}">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{route('products.edit',$product->id)}}">
+                                                <a href="{{route('customers.edit',$customer->id)}}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
                                             </li>
 
                                             <li>
-                                                <form action="{{route('products.destroy',$product->id)}}" method="POST" id="destroy">
+                                                <form action="{{route('customers.destroy',$customer->id)}}" method="POST" id="destroy">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" onclick="return confirm('Are you sure you want to delete this record?')">

@@ -8,6 +8,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Redirect;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 
 class ProductController extends Controller
@@ -70,9 +71,17 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        $generator = new BarcodeGeneratorHTML();
+
+        $barcode = $generator->getBarcode($product->product_code, $generator::TYPE_CODE_128);
+        return view('admin.products.show',[
+            'product'=>$product,
+            'barcode'=>$barcode,
+        ]);
+        
+        
     }
 
     /**
@@ -109,7 +118,7 @@ class ProductController extends Controller
             $validateData['image'] = $imageName;
         }
         $product->update($validateData);
-        return Redirect::route('products.index')->with('success','Unit has been updated!');;
+        return Redirect::route('products.index')->with('success','Unit has been updated!');
     }
 
     /**

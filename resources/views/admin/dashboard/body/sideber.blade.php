@@ -111,6 +111,24 @@
                   </li>
 
                   <li class="sidebar-list">
+                    <a class="">
+                        <span class="disabled">pages</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="{{route('customers.index')}}">
+                        <i class="ri-user-3-line"></i>
+                        <span>customers</span>
+                    </a>
+                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                        <i class="ri-user-3-line"></i>
+                        <span>Users</span>
+                    </a>
+
+                    
+                </li>
+
+                  <li class="sidebar-list">
                       <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                           <i class="ri-user-3-line"></i>
                           <span>Roles</span>
