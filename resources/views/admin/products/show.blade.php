@@ -44,7 +44,7 @@
                             <div class="mb-4 row align-items-center">
                                 <div class="col-sm-6">
                                     <label class="form-label-title  mb-2">Category</label>
-                                    <div class="form-control form-control-solid">{{ $product->category->name  }}</div>
+                                    <div class="form-control form-control-solid">{{optional($product->category)->name?:'none'}}</div>
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label-title  mb-2">Unit</label>

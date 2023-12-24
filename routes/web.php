@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/units',UnitController::class);
     Route::resource('/products',ProductController::class);
     Route::resource('/customers',CustomerController::class);
+    Route::resource('/suppliers',SupplierController::class);
 });
 
 require __DIR__.'/auth.php';

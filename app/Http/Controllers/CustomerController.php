@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -80,31 +81,41 @@ class CustomerController extends Controller
     {
         $rules = [
             'photo' => 'image|file|max:1024',
-            'name' => 'string|max:50',
-            'email' => 'email|max:50|unique:customers,email',
-            'phone' => 'string|max:25|unique:customers,phone',
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|max:50|unique:customers,email,'.$customer->id,
+            'phone' => 'required|string|max:25|unique:customers,phone,'.$customer->id,
             'account_holder' => 'max:50',
-            'account_nubmer' => 'max:25',
+            'account_number' => 'max:25',
             'bank_name' => 'max:25',
-            'address' => 'string|max:100',
+            'address' => 'required|string|max:100',
         ];
         $validatedData = $request->validate($rules);
-
+        
         if ($request->file('photo')) {
+            $path = 'uploads/customer/';
+            if(file_exists(public_path($path.$customer->photo))){
+                unlink(public_path($path.$customer->photo));
+            }
             $image = $request->file('photo');
             $imageName = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/customer/'), $imageName);
+            $image->move(public_path($path), $imageName);
             $validatedData['photo'] = $imageName;
         }
-        $customer->update($validatedData);
+        Customer::where('id',$customer->id)->update($validatedData);
         return Redirect::route('customers.index')->withSuccess('customer details has been created!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Customer $customer)
     {
-        //
+        if($customer->photo){
+            if(file_exists(public_path('uploads/customer/'.$customer->photo))){
+                unlink(public_path('uploads/customer/'.$customer->photo));
+            }
+        }
+        $customer->delete();
+        return back()->withSuccess('customer details has been deleted!');
     }
 }

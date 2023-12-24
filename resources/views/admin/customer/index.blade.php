@@ -42,11 +42,6 @@
                                     <td>
                                         <ul>
                                             <li>
-                                                <a href="{{route('customers.show',$customer->id)}}">
-                                                    <i class="ri-eye-line"></i>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="{{route('customers.edit',$customer->id)}}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>

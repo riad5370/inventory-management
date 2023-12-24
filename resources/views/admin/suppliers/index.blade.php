@@ -12,76 +12,53 @@
             @endif
             <div class="card-body">
                 <div class="title-header option-title">
-                    <h5>Product List</h5>
+                    <h5>Supplier List</h5>
                     <form class="d-inline-flex">
-                        <a href="{{route('products.create')}}" class="align-items-center btn btn-theme">
+                        <a href="{{route('suppliers.create')}}" class="align-items-center btn btn-theme">
                             <i data-feather="plus"></i>Add New
                         </a>
                     </form>
                 </div>
-
                 <div class="table-responsive table-product">
                     <table class="table all-package theme-table" id="table_id">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Image</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Unit</th>
-                                <th>Stock</th>
-                                <th>Price</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>ShopName</th>
+                                <th>Phone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            @foreach ($products as $key=>$product)
+                            @foreach ($supplers as $key=>$suppler)
                                 <tr>
                                     <td class="text-center">{{$key+1}}</td>
-                                    <td>
-                                        <img width="70" src="{{$product->image?asset('uploads/product/'.$product->image):asset('backend/assets/images/bg.png')}}" alt="">
-                                    </td>
-                                    <td>{{$product->name}}</td>
-                                    <td>{{ $product->category ? $product->category->name : 'none' }}</td>
-                                    <td>
-                                        @if (App\Models\Unit::where('id',$product->id)->exists())
-                                        {{$product->unit->name}}
-                                        @else 
-                                        unkhno
-                                        @endif
-                                        
-                                    </td>
-                                    <td>{{$product->stock}}</td>
-                                    <td>{{$product->selling_price}}</td>
+                                    <td>{{$suppler->name}}</td>
+                                    <td>{{$suppler->email}}</td>
+                                    <td>{{$suppler->shopname}}</td>
+                                    <td>{{$suppler->phone}}</td>
                                     <td>
                                         <ul>
                                             <li>
-                                                <a href="{{route('products.show',$product->id)}}">
-                                                    <i class="ri-eye-line"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('products.edit',$product->id)}}">
+                                                <a href="{{route('suppliers.edit',$suppler->id)}}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
                                             </li>
-
                                             <li>
-                                                <form action="{{route('products.destroy',$product->id)}}" method="POST" id="destroy">
+                                                <form action="{{route('suppliers.destroy',$suppler->id)}}" method="POST" id="destroy">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" onclick="return confirm('Are you sure you want to delete this record?')">
                                                         <i class="ri-delete-bin-line"></i>
                                                       </button>
                                                 </form>
-                                               
                                             </li>
                                         </ul>
                                     </td>
                                 </tr> 
                             @endforeach
-                            
                         </tbody>
                     </table>
                 </div>
@@ -92,13 +69,13 @@
 </div>
 <!-- All User Table Ends-->
 @endsection
-@if ($products->count() >= 5)
-@section('js')
-<!-- Data table js -->
-<script src="{{asset('backend')}}/assets/js/jquery.dataTables.js"></script>
-<script src="{{asset('backend')}}/assets/js/custom-data-table.js"></script>
+@if ($supplers->count() >= 8)
+    @section('js')
+    <!-- Data table js -->
+    <script src="{{asset('backend')}}/assets/js/jquery.dataTables.js"></script>
+    <script src="{{asset('backend')}}/assets/js/custom-data-table.js"></script>
 
-<!-- all checkbox select js -->
-<script src="{{asset('backend')}}/assets/js/checkbox-all-check.js"></script>
-@endsection 
+    <!-- all checkbox select js -->
+    <script src="{{asset('backend')}}/assets/js/checkbox-all-check.js"></script>
+    @endsection  
 @endif

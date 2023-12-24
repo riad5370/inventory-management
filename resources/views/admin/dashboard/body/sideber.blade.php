@@ -120,9 +120,9 @@
                         <i class="ri-user-3-line"></i>
                         <span>customers</span>
                     </a>
-                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                    <a class="sidebar-link sidebar-title" href="{{route('suppliers.index')}}">
                         <i class="ri-user-3-line"></i>
-                        <span>Users</span>
+                        <span>suppliers</span>
                     </a>
 
                     
